@@ -1,4 +1,4 @@
-package ca.mcmaster.se2aa4.island.teamXXX;
+package ca.mcmaster.se2aa4.island.team013;
 
 import java.io.StringReader;
 
@@ -74,7 +74,7 @@ public class Explorer implements IExplorerRaid {
     @Override
     public String deliverFinalReport() {
         logger.info("** Closest POI: {}", processor.getClosestPOI());
-        return "";
+        return "nu";
     }
 
 }
