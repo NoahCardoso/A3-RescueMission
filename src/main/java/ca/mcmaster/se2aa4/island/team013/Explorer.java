@@ -74,7 +74,7 @@ public class Explorer implements IExplorerRaid {
     @Override
     public String deliverFinalReport() {
         logger.info("** Closest POI: {}", processor.getClosestPOI());
-        return "nu";
+        return "WIN";
     }
 
 }
