@@ -145,7 +145,7 @@ public class SearchModule{
     }
 
     // moves left to right, scanning wherever the internal map has a land tile
-    public void scanEast(Queue<Command> moveQueue,int droneX, int droneY,JSONObject info, Direction dir) {
+    public void scanEast(Queue<Command> moveQueue,int droneX, int droneY, Direction dir) {
         int y = nextLand(droneX, droneY, dir);
 
         if (y != -1) { // land is found infront of the drone

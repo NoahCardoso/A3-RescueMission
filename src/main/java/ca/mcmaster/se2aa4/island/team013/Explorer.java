@@ -9,7 +9,7 @@ import org.json.JSONTokener;
 
 import eu.ace_design.island.bot.IExplorerRaid;
 
-public class Explorer implements IExplorerRaid {
+public class Explorer extends Subject implements IExplorerRaid {
 
     private final Logger logger = LogManager.getLogger();
 
@@ -54,10 +54,12 @@ public class Explorer implements IExplorerRaid {
         JSONObject extraInfo = response.getJSONObject("extras");
         drone.updateResults(extraInfo);
 
+        notifyAllObservers(extraInfo);
         logData(extraInfo);
     }
 
     private void logData(JSONObject data) {
+        
         if (data.has("creeks")) {
             if (data.getJSONArray("creeks").length() >= 1) {
                 processor.addCreek(data.getJSONArray("creeks").getString(0), drone.getX(), drone.getY());

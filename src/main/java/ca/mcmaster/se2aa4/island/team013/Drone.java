@@ -34,7 +34,7 @@ public class Drone{
             } else if (sm.getBuildStatus() == false) {
                 sm.buildInternalMap(this.moveQueue,this.x,this.y,results,this.dir);
             } else if (sm.getScanningDirection() == Direction.EAST) {
-                sm.scanEast(this.moveQueue,this.x,this.y,this.results,this.dir);
+                sm.scanEast(this.moveQueue,this.x,this.y,this.dir);
             } else {
                 sm.scanWest(this.moveQueue,this.x,this.y,this.results,this.dir);
             }
