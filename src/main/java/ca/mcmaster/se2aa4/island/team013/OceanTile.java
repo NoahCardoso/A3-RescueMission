@@ -3,7 +3,7 @@ package ca.mcmaster.se2aa4.island.team013;
 public class OceanTile extends Tile{
 
     OceanTile(){
-        super(TileType.WATER);
+        super(TileType.OCEAN);
     }
 
 }

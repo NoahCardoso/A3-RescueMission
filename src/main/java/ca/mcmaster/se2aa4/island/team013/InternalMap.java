@@ -12,6 +12,7 @@ public class InternalMap {
     private int mostEast; // x value of the most east point of the island
     private int mostSouth; // y value of the most south point of the island
     private int mostWest; // x value of the most west point of the island
+    private TileFactory tileFactory = new TileFactory();
 
     InternalMap(int limitX, int limitY) {
         this.limitX = limitX;
@@ -20,7 +21,7 @@ public class InternalMap {
         
         for (int i = 0; i <= limitY; i++) {
             for (int j = 0; j <= limitX; j++) {
-                map[i][j] = new LandTile();
+                map[i][j] = tileFactory.getTile(TileType.LAND);
             }
         }
     }
@@ -30,22 +31,22 @@ public class InternalMap {
         switch (echoDir) {
             case EAST -> {
                 for (int i = 0; i < x + range; i++) {
-                    map[y][i] = new OceanTile();
+                    map[y][i] = tileFactory.getTile(TileType.OCEAN);
                 }
             }
             case SOUTH -> {
                 for (int i = 0; i < y + range; i++) {
-                    map[i][x] = new OceanTile();
+                    map[i][x] = tileFactory.getTile(TileType.OCEAN);
                 }
             }
             case WEST -> {
                 for (int i = 0; i < limitX - x + range; i++) {
-                    map[y][limitX-i] = new OceanTile();
+                    map[y][limitX-i] = tileFactory.getTile(TileType.OCEAN);
                 }
             }
             default -> {
                 for (int i = 0; i < limitY - y + range; i++) {
-                    map[limitY-i][x] = new OceanTile();
+                    map[limitY-i][x] = tileFactory.getTile(TileType.OCEAN);
                 }
             }
         }
@@ -63,7 +64,7 @@ public class InternalMap {
         try {
             return map[x][y];
         } catch (Exception e) {
-            return new UnknownTile();
+            return tileFactory.getTile(TileType.UNKNOWN);
         }
     }
 
@@ -115,25 +116,25 @@ public class InternalMap {
     public void cleanMap() {
         for (int i = 0; i <= limitY; i++) {
             for (int j = 0; j < mostWest; j++) {
-                map[i][j] = new OceanTile();
+                map[i][j] = tileFactory.getTile(TileType.OCEAN);
             }
         }
 
         for (int i = 0; i <= limitY; i++) {
             for (int j = limitX; j > mostEast; j--) {
-                map[i][j] = new OceanTile();
+                map[i][j] = tileFactory.getTile(TileType.OCEAN);
             }
         }
 
         for (int i = limitY; i > mostSouth; i--) {
             for (int j = 0; j <= limitX; j++) {
-                map[i][j] = new OceanTile();
+                map[i][j] = tileFactory.getTile(TileType.OCEAN);
             }
         }
 
         for (int i = 0; i < mostNorth; i++) {
             for (int j = 0; j <= limitX; j++) {
-                map[i][j] = new OceanTile();
+                map[i][j] = tileFactory.getTile(TileType.OCEAN);
             }
         }
     }
