@@ -5,7 +5,7 @@ import java.util.Queue;
 
 import org.json.JSONObject;
 
-public class Drone{
+public class Drone extends Subject{
 
     private int x = 0;
     private int y = 0;
@@ -48,6 +48,7 @@ public class Drone{
 
     public void updateResults(JSONObject info){
         this.results = info;
+        this.notifyAllObservers(this);
     }
 
     public void setBattery(int battery){

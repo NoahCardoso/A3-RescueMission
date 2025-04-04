@@ -20,75 +20,6 @@ public class ExampleTest {
     String path = "./maps/map03.json";
 
     @Test
-    @Order(2)
-    public void Map06Test(){
-        this.path = "./maps/map06.json";
-        MapTest();
-    }
-    @Test
-    @Order(3)
-    public void Map10Test(){
-        this.path="./maps/map10.json";
-        MapTest();
-    }
-
-    @Test
-    @Order(4)
-    public void Map17Test(){
-        this.path = "./maps/map17.json";
-        MapTest();
-    }
-
-    @Test
-    @Order(5)
-    public void Map20Test(){
-        this.path = "./maps/map20.json";
-        MapTest();
-    }
-
-    @Test
-    @Order(1)
-    public void MapTest() {
-        String testFilePath = this.path;
-        // Capture console output
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        ByteArrayOutputStream errContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-        System.setErr(new PrintStream(errContent));
-        
-        // Run the main method
-        
-        File testFile = new File(testFilePath);
-        assertTrue(testFile.exists(), "Test input file must exist: " + testFilePath);
-        
-        // Ensure output directory exists
-        File outputDir = new File("./outputs");
-        if (!outputDir.exists()) {
-            assertTrue(outputDir.mkdirs(), "Failed to create output directory");
-        }
-
-        try {
-            RunnerTest.main(new String[]{testFilePath});
-        } catch (Exception e) {
-            fail("Runner.main() threw an exception: " + e.getMessage());
-        }
-
-        // Reset System.out and System.err
-        System.setOut(System.out);
-        System.setErr(System.err);
-    }
-
-    @Test
-    public void ClosestCreekTest() {
-        POIProcessor ls = new POIProcessor();
-        ls.addEmergencySite("00", 0, 0);
-        ls.addCreek("20", 20, 0);
-        ls.addCreek("14", 15, 40);
-        ls.addCreek("41", 40, 10);
-        assertTrue(ls.getClosestPOI().equals("20"));
-    }
-
-    @Test
     public void FlyTestX() {
         Drone drone = new Drone(1000, Direction.EAST);
         int x = drone.getX();
@@ -114,9 +45,79 @@ public class ExampleTest {
         JSONObject temp = new Heading(Direction.SOUTH).execute(drone);
         assertTrue((drone.getY()-1) == y && (drone.getX()-1)== x);
     }
+
+    @Test
+    public void ClosestCreekTest() {
+        POIProcessor ls = new POIProcessor();
+        ls.addEmergencySite("00", 0, 0);
+        ls.addCreek("20", 20, 0);
+        ls.addCreek("14", 15, 40);
+        ls.addCreek("41", 40, 10);
+        assertTrue(ls.getClosestPOI().equals("20"));
+    }
+
+
+    @Test
+    @Order(1)
+    public void MapTest() {
+        String testFilePath = this.path;
+        // Capture console output
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        System.setErr(new PrintStream(errContent));
+        
+        // Run the main method
+        
+        File testFile = new File(testFilePath);
+        assertTrue(testFile.exists(), "Test input file must exist: " + testFilePath);
+        
+        // Ensure output directory exists
+        File outputDir = new File("./outputs");
+        if (!outputDir.exists()) {
+            assertTrue(outputDir.mkdirs(), "Failed to create output directory");
+        }
+
+        try {
+            Runner.main(new String[]{testFilePath});
+        } catch (Exception e) {
+            fail("Runner.main() threw an exception: " + e.getMessage());
+        }
+
+        System.setOut(System.out);
+        System.setErr(System.err);
+    }
+
+    @Test
+    @Order(2)
+    public void Map06Test(){
+        this.path = "./maps/map06.json";
+        MapTest();
+    }
+    @Test
+    @Order(3)
+    public void Map10Test(){
+        this.path="./maps/map10.json";
+        MapTest();
+    }
+
+    @Test
+    @Order(4)
+    public void Map17Test(){
+        this.path = "./maps/map17.json";
+        MapTest();
+    }
+
+    @Test
+    @Order(5)
+    public void Map20Test(){
+        this.path = "./maps/map20.json";
+        MapTest();
+    }
+    
     
     @Test
-    @Order(8)
+    @Order(6)
     public void hasEmergencySiteTest() throws IOException {
         File currentDir = new File(".");
         String[] files = currentDir.list();
@@ -129,13 +130,11 @@ public class ExampleTest {
         }
 
 
-        // Read and parse JSON file
         String testFilePath = "./outputs/_pois.json";
         String jsonContent = new String(Files.readAllBytes(Paths.get(testFilePath)));
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode rootNode = objectMapper.readTree(jsonContent);
         
-        // Ensure it's an array
         assertTrue(rootNode.isArray(), "JSON root should be an array");
         
         boolean hasEmergencySite = false;
@@ -152,13 +151,13 @@ public class ExampleTest {
     }
 
     @Test
-    @Order(9)
+    @Order(7)
     public void didStopTest() throws IOException{
         String testFilePath = "./outputs";
         File testFile = new File(testFilePath);
         assertTrue(testFile.exists(), "Test input file must exist: " + testFilePath);
 
-        testFilePath = "./outputs/ExplorerDecorator_Island.json";
+        testFilePath = "./outputs/Explorer_Island.json";
         String jsonContent = new String(Files.readAllBytes(Paths.get(testFilePath)));
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode rootNode = objectMapper.readTree(jsonContent);

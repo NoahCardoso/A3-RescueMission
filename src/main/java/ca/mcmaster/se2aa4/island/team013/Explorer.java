@@ -9,7 +9,7 @@ import org.json.JSONTokener;
 
 import eu.ace_design.island.bot.IExplorerRaid;
 
-public class Explorer extends Subject implements IExplorerRaid {
+public class Explorer implements IExplorerRaid {
 
     private final Logger logger = LogManager.getLogger();
 
@@ -27,7 +27,7 @@ public class Explorer extends Subject implements IExplorerRaid {
         
         Integer batteryLevel = info.getInt("budget");
         this.drone = new Drone(batteryLevel, Direction.EAST);
-        
+        drone.attach(new LoggerObserver());
         logger.info("The drone is facing {}", direction);
         logger.info("Battery level is {}", batteryLevel);
     }
@@ -54,7 +54,6 @@ public class Explorer extends Subject implements IExplorerRaid {
         JSONObject extraInfo = response.getJSONObject("extras");
         drone.updateResults(extraInfo);
 
-        notifyAllObservers(extraInfo);
         logData(extraInfo);
     }
 
