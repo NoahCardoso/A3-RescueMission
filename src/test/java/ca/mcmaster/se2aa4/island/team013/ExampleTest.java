@@ -10,7 +10,6 @@ import java.nio.file.Paths;
 import org.json.JSONObject;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -58,7 +57,6 @@ public class ExampleTest {
 
 
     @Test
-    @Order(1)
     public void MapTest() {
         String testFilePath = this.path;
         // Capture console output
@@ -89,27 +87,23 @@ public class ExampleTest {
     }
 
     @Test
-    @Order(2)
     public void Map06Test(){
         this.path = "./maps/map06.json";
         MapTest();
     }
     @Test
-    @Order(3)
     public void Map10Test(){
         this.path="./maps/map10.json";
         MapTest();
     }
 
     @Test
-    @Order(4)
     public void Map17Test(){
         this.path = "./maps/map17.json";
         MapTest();
     }
 
     @Test
-    @Order(5)
     public void Map20Test(){
         this.path = "./maps/map20.json";
         MapTest();
@@ -117,7 +111,6 @@ public class ExampleTest {
     
     
     @Test
-    @Order(6)
     public void hasEmergencySiteTest() throws IOException {
         File currentDir = new File(".");
         String[] files = currentDir.list();
@@ -146,12 +139,10 @@ public class ExampleTest {
             }
         }
         
-        // Ensure at least one entry is an EmergencySite
         assertTrue(hasEmergencySite, "There must be at least one 'EmergencySite'");
     }
 
     @Test
-    @Order(7)
     public void didStopTest() throws IOException{
         String testFilePath = "./outputs";
         File testFile = new File(testFilePath);
@@ -162,7 +153,6 @@ public class ExampleTest {
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode rootNode = objectMapper.readTree(jsonContent);
         
-        // Ensure it's an array
         assertTrue(rootNode.isArray(), "JSON root should be an array");
 
         boolean isStop = false;
